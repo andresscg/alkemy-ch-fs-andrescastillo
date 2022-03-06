@@ -28,7 +28,7 @@ const userControllers = {
       .then(user => {
         let dcPass = user && bcrypt.compareSync(password, user.password)
         if(!user || !dcPass){
-          res.status(403).json({success: false, response: 'Invalid email or password'})
+          res.status(403).json({success: false, response: 'Invalid email or password'}).end()
         }else{
           const token = jwt.sign({...user}, process.env.SECRET_KEY)
           res.status(200).json({success: true, response: {...user._doc, token}})
