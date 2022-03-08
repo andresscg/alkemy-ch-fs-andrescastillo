@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import LoginForm from '../../components/LoginForm/LoginForm'
+import { LoginContainer } from './LoginStyles'
 
 const Login = () => {
   const token = localStorage.getItem('token')
@@ -10,10 +11,10 @@ const Login = () => {
     token && navigate('/')
   }, [token])
   return (
-    <div>
+    <LoginContainer>
+      <img src="/assets/login.svg" alt="budget" style={{maxWidth: '50%', flex: '1 1 0'}} />
       <LoginForm />
-      <h2>Don't have an account? <Link to="/register">Sign up here</Link></h2>
-    </div>
+    </LoginContainer>
   )
 }
 

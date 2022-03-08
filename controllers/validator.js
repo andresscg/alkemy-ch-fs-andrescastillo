@@ -8,11 +8,6 @@ const validator = (req, res, next) => {
       'string.alphanum': 'Name must only contain alphabetic characters',
       'string.min': 'Name must be at least 2 characters'
     }),
-    profilePicture: joi.string().trim().uri().required().messages({
-      'string.empty': 'Profile picture can not be empty',
-      'any.required': 'All field are required',
-      'string.uri': 'Your profile picture must be a valid URL',
-    }),
     email: joi.string().trim().email().required().messages({
       'string.empty': 'Email can not be empty',
       'any.required': 'All field are required',

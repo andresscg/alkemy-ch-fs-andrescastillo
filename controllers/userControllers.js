@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken')
 
 const userControllers = {
   addNewUser: (req, res) => {
-    const {name, email, password, profilePicture, country} = req.body
+    const {name, email, password, country} = req.body
     let hash = bcrypt.hashSync(password)
-    const newUser = new User({name, email, profilePicture, country, password: hash})
+    const newUser = new User({name, email, country, password: hash})
     User.findOne({email: newUser.email})
       .then(user => {
         if(user){
@@ -37,7 +37,7 @@ const userControllers = {
       .catch(err => res.status(500).json({success: false, response: err.message}))
   },
   verifyToken: (req, res) => {
-    res.json({name: req.user.name, profilePicture: req.user.profilePicture, _id: req.user._id, country: req.user.country})
+    res.json({name: req.user.name, _id: req.user._id, country: req.user.country})
   }
 }
 

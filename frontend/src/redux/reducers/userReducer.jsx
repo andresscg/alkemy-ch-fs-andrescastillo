@@ -1,4 +1,4 @@
-const userReducer = (state = {token: null, name: null, country: null, profilePicture: null, _id: null}, action) => {
+const userReducer = (state = {token: null, name: null, country: null, _id: null}, action) => {
   switch (action.type) {
     case 'SIGN_IN':
       localStorage.setItem('token', action.payload.token)
@@ -7,7 +7,6 @@ const userReducer = (state = {token: null, name: null, country: null, profilePic
         token: action.payload.token,
         name: action.payload.name,
         country: action.payload.country,
-        profilePicture: action.payload.profilePicture,
         _id: action.payload._id
       }
     case 'SIGN_OUT':
@@ -16,7 +15,6 @@ const userReducer = (state = {token: null, name: null, country: null, profilePic
         token: null,
         name: null,
         country: null,
-        profilePicture: null, 
         _id: null
       }
     default:

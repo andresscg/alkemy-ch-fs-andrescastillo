@@ -1,57 +1,67 @@
-import React, { useState } from "react";
-import { Form, Input, Label } from "./LoginFormStyles";
+import { useState } from 'react'
+import { Form } from "./LoginFormStyles";
 import userActions from "../../redux/actions/userActions";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import {
+  FormErrorMessage,
+  FormLabel,
+  FormControl,
+  Input,
+  Button,
+  useToast
+} from "@chakra-ui/react";
+import FormField from '../FormField'
 
 const LoginForm = () => {
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
+  const [sending, setSending] = useState(false)
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toast = useToast()
 
-  function handleChange(e) {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (Object.values(user).some((value) => value === "")) {
-      alert("Please fill all fields");
-    } else {
-      dispatch(userActions.signIn(user)).then((res) => {
-        if (res.success) {
-          navigate("/");
-        } else {
-          alert(res.response);
-        }
-      });
-    }
+  function onSubmit(data) {
+    setSending(true)
+
+    dispatch(userActions.signIn(data)).then((res) => {
+      setSending(false)
+      if (res.success) {
+        toast({
+          title: 'Welcome back!',
+          description: 'You logged in successfully',
+          status: 'success',
+          position: 'bottom-right',
+          duration: 5000,
+          isClosable: true
+        })
+        navigate("/");
+      }else {
+        toast({
+          title: 'Ups!',
+          description: res.response,
+          status: 'error',
+          position: 'bottom-right',
+          duration: 5000,
+          isClosable: true
+        })
+      }
+    }); 
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Label htmlFor="email">Email:</Label>
-      <Input
-        id="email"
-        name="email"
-        type="email"
-        onChange={handleChange}
-        required
-        title="Please enter your email"
-      />
-      <Label htmlFor="password">Password:</Label>
-      <Input
-        id="password"
-        name="password"
-        type="password"
-        onChange={handleChange}
-        required
-        pattern=".{8,16}"
-      />
-      <Input type="submit" value="Login" />
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <FormField value="email" name="Email" errors={errors} register={register} type="email"/>
+      <FormField value="password" name="Password" errors={errors} register={register} type="password"/>
+      <Button type="submit" colorScheme="orange" size="lg" fontSize="5xl" padding="10" isLoading={sending}>
+        Log In
+      </Button>
+      <h2>Don't have an account? <Link to="/register">Sign up here</Link></h2>
     </Form>
   );
 };

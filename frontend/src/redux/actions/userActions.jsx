@@ -1,6 +1,20 @@
 import axios from 'axios'
 
 const userActions = {
+  signUp: (user) => {
+    return async (dispatch, getState) => {
+      let response
+      await axios.post('http://localhost:5000/api/users/signup', user)
+        .then(res => {
+          response = res
+          dispatch({type: 'SIGN_IN', payload: response.data.response})
+        })
+        .catch(err => {
+          response = err.response
+        })
+      return response
+    }
+  },
   signIn: (user) => {
     return async(dispatch, getState) => {
       let response 
@@ -16,13 +30,11 @@ const userActions = {
   signInLS: (token) => {
     return async(dispatch, getState) => {
       let response
-      console.log('entra')
       await axios.get('http://localhost:5000/api/verifyToken', {
         headers: {
           Authorization: 'Bearer ' + token
         }
       }).then(res => {
-        console.log(res)
         response = res.data
         dispatch({type: 'SIGN_IN', payload: {...response, token}})
       }).catch(err => response = err.response)

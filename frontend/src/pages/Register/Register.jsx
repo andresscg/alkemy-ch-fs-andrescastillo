@@ -1,12 +1,20 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import RegisterForm from '../../components/RegisterForm/RegisterForm'
+import { LoginContainer } from '../Login/LoginStyles'
 
 const Register = () => {
+  const token = localStorage.getItem('token')
+  const navigate = useNavigate()
+  useEffect(() => {
+    token && navigate('/')
+  }, [token])
   return (
-    <div>
-      Register
-      <Link to="/login">Login</Link>
-    </div>
+    <LoginContainer>
+      <img src="/assets/register.svg" alt="budget" style={{maxWidth: '50%', flex: '1 1 0'}} />
+      <RegisterForm />
+    </LoginContainer>
   )
 }
 
