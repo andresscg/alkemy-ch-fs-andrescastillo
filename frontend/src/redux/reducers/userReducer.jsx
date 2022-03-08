@@ -1,4 +1,4 @@
-const userReducer = (state = {token: null, name: null, country: null, _id: null}, action) => {
+const userReducer = (state = { token: null, name: null, country: null, _id: null }, action) => {
   switch (action.type) {
     case 'SIGN_IN':
       localStorage.setItem('token', action.payload.token)

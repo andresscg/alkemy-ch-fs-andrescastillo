@@ -1,17 +1,13 @@
-import { useState } from 'react'
-import { Form } from "./LoginFormStyles";
-import userActions from "../../redux/actions/userActions";
-import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import React, { useState } from 'react'
+import { Form } from './LoginFormStyles'
+import userActions from '../../redux/actions/userActions'
+import { useDispatch } from 'react-redux'
+import { useNavigate, Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 import {
-  FormErrorMessage,
-  FormLabel,
-  FormControl,
-  Input,
   Button,
   useToast
-} from "@chakra-ui/react";
+} from '@chakra-ui/react'
 import FormField from '../FormField'
 
 const LoginForm = () => {
@@ -19,14 +15,13 @@ const LoginForm = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
-  } = useForm();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+    formState: { errors }
+  } = useForm()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const toast = useToast()
 
-
-  function onSubmit(data) {
+  function onSubmit (data) {
     setSending(true)
 
     dispatch(userActions.signIn(data)).then((res) => {
@@ -40,8 +35,8 @@ const LoginForm = () => {
           duration: 5000,
           isClosable: true
         })
-        navigate("/");
-      }else {
+        navigate('/')
+      } else {
         toast({
           title: 'Ups!',
           description: res.response,
@@ -51,7 +46,7 @@ const LoginForm = () => {
           isClosable: true
         })
       }
-    }); 
+    })
   }
 
   return (
@@ -61,9 +56,9 @@ const LoginForm = () => {
       <Button type="submit" colorScheme="orange" size="lg" fontSize="5xl" padding="10" isLoading={sending}>
         Log In
       </Button>
-      <h2>Don't have an account? <Link to="/register">Sign up here</Link></h2>
+      <h2>You don`&apos;`t have an account? <Link to="/register">Sign up here</Link></h2>
     </Form>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm

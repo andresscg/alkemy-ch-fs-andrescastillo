@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import RegisterForm from '../../components/RegisterForm/RegisterForm'
 import { LoginContainer } from '../Login/LoginStyles'
 
@@ -12,7 +11,7 @@ const Register = () => {
   }, [token])
   return (
     <LoginContainer>
-      <img src="/assets/register.svg" alt="budget" style={{maxWidth: '50%', flex: '1 1 0'}} />
+      <img src="/assets/register.svg" alt="budget" style={{ maxWidth: '50%', flex: '1 1 0' }} />
       <RegisterForm />
     </LoginContainer>
   )

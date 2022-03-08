@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const LoginContainer = styled.div`
   display: flex;
@@ -11,4 +11,4 @@ export const LoginContainer = styled.div`
   @media screen and (max-width: 768px){
     flex-direction: column;
   }
-`;
+`
